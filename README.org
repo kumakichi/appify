@@ -24,6 +24,8 @@
 	  print this help info
     -i, --id string
 	  bundle identifier
+    -m, --menubar
+	  for menu bar only app
     -n, --name string
 	  app name (default "My Application")
     -v, --version string

@@ -5,16 +5,16 @@ icon=""
 id=""
 name="My Application"
 version="1.0"
+menubar=0
 
 # check getopt
 getoptVersion=$(getopt --version)
-if [ "$getoptVersion" = " --" ]
-then
-    echo "It seems getopt is not GNU version, please install it first"
-    exit
+if [ "$getoptVersion" = " --" ]; then
+	echo "It seems getopt is not GNU version, please install it first"
+	exit
 fi
 
-opts=$(getopt -o a:c:hi:n:v: --long author:,icon:,help,id:,name:,version: -n $(basename "$0") -- "$@")
+opts=$(getopt -o a:c:hi:mn:v: --long author:,icon:,help,id:,menubar,name:,version: -n $(basename "$0") -- "$@")
 
 eval set --$opts
 
@@ -36,6 +36,10 @@ while [[ $# -gt 0 ]]; do
 	-i | --id)
 		id=$2
 		shift 2
+		;;
+	-m | --menubar)
+		menubar=1
+		shift
 		;;
 	-n | --name)
 		name=$2
@@ -62,6 +66,8 @@ Usage: $0 [options] executable-file
         print this help info
   -i, --id string
     	bundle identifier
+  -m, --menubar
+        for menu bar only app
   -n, --name string
     	app name (default "My Application")
   -v, --version string
@@ -148,6 +154,13 @@ if [ "$icon" != "" ]; then
 	cat >>"${appName}/Contents/Info.plist" <<EOF
 		<key>CFBundleIconFile</key>
 		<string>icon.icns</string>
+EOF
+fi
+
+if [ $menubar -eq 1 ]; then
+	cat >>"${appName}/Contents/Info.plist" <<EOF
+		<key>LSUIElement</key>
+		<true/>
 EOF
 fi
 
