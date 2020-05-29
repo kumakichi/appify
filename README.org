@@ -1,0 +1,35 @@
+* About
+  Create a macOS Application from an executable
+
+  This is a bash implementation of [[https://github.com/machinebox/appify][machinebox/appify]](which firstly comes from [[https://gist.github.com/anmoljagetia/d37da67b9d408b35ac753ce51e420132][anmoljagetia/appify]])
+
+  + Create an Application from any executable
+  + Set your own logo
+  + Specify app metadata via flags
+
+* How to use
+
+#+BEGIN_SRC sh
+  # we do not use the default BSD version, use GNU version
+  $ brew install gnu-getopt
+  $ echo 'export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"' >> ~/.bashrc
+
+  $ ./appify.sh -h
+  Usage: ./appify.sh [options] executable-file
+    -a, --author string
+	  author (default "appify")
+    -c, --icon string
+	  icon image file (.iconset|.icns|.png|.jpg|.jpeg)
+    -h, --help
+	  print this help info
+    -i, --id string
+	  bundle identifier
+    -n, --name string
+	  app name (default "My Application")
+    -v, --version string
+	  app version (default "1.0")
+
+  $ ./appify.sh -c machina-square.png ../google-translate/google-translator
+#+END_SRC
+
+[[./demo.png]]
